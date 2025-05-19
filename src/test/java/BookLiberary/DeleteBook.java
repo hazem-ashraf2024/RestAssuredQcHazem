@@ -19,7 +19,7 @@ public class DeleteBook {
         String getBookResponse=
                 given().log().all().body("{\n" +
                         " \n" +
-                        "\"ID\" : \""+AddBook.getBookId()+"\"\n" +
+                        "\"ID\" : \""+ BookLibraryCrudOps.getBookId()+"\"\n" +
                         " \n" +
                         "} \n").when().
                         post(":/Library/DeleteBook.php").

@@ -1,9 +1,9 @@
 package BookLiberary;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
+
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
-import jdk.jfr.RecordingState;
+
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -13,7 +13,7 @@ import java.nio.file.Paths;
 
 import static io.restassured.RestAssured.given;
 
-public class AddBook {
+public class BookLibraryCrudOps {
     private static String bookId;
 
     public static String getBookId() {
@@ -42,25 +42,25 @@ public class AddBook {
 
     @Test(dependsOnMethods = "addBookTest")
     public void getBookTest(){
-        System.out.println(AddBook.getBookId());
+        System.out.println(BookLibraryCrudOps.getBookId());
         String getBookResponse=
                 given().
                         when().
-                        get("Library/GetBook.php?ID= "+bookId+"").
+                        get("Library/GetBook.php?AuthorName=hazemAshraf").
                         then().extract().response().asString();
         System.out.println(getBookResponse);
     }
     @Test(dependsOnMethods = "getBookTest")
     public void DeleteBookTest(){
-        String getBookResponse=
+        String deleteBookResponse=
                 given().log().all().body("{\n" +
                                 " \n" +
-                                "\"ID\" : \""+bookId +
+                                "\"ID\" : \""+bookId+"\"\n" +
                                 " \n" +
                                 "} \n").when().
-                        post(":/Library/DeleteBook.php").
+                        post("/Library/DeleteBook.php").
                         then().log().all().extract().response().asString();
-        System.out.println(getBookResponse);
+        System.out.println(deleteBookResponse);
     }
 
 }
