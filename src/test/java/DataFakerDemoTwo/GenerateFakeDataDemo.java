@@ -23,6 +23,7 @@ public class GenerateFakeDataDemo {
         System.out.println("Fake Name: " + fakeName);
         System.out.println("Fake Saudi Phone: " + saudiFakePhone);
         System.out.println("Arabic Name: " + arabicName);
+        // create hashmap to put json
         Map<String,Object> fakeUserData= new HashMap<>();
         fakeUserData.put("name",faker.name().fullName());
         fakeUserData.put("age",faker.number().numberBetween(16,30));
@@ -34,7 +35,7 @@ public class GenerateFakeDataDemo {
             mapper.writerWithDefaultPrettyPrinter()
                     .writeValue(new File("D:/compressed/fakeUser.json"),fakeUserData);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
 
     }
